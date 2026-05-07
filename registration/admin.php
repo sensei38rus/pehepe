@@ -92,274 +92,246 @@ $totalApplications = count($applications);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ-панель - Заявки на конференцию</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        background: #f0f0f0;
+        padding: 20px;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    
+    .header {
+        background: #4a90e2;
+        color: white;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .header h1 {
+        font-size: 24px;
+    }
+    
+    .stats {
+        background: rgba(255,255,255,0.2);
+        padding: 5px 15px;
+        border-radius: 3px;
+        text-align: center;
+    }
+    
+    .stats .number {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .content {
+        padding: 20px;
+    }
+    
+    .toolbar {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .select-all {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .delete-btn {
+        background: #e74c3c;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    
+    .delete-btn:hover {
+        background: #c0392b;
+    }
+    
+    .message {
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 3px;
+    }
+    
+    .success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    
+    .info-message {
+        background: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .applications-table {
+        overflow-x: auto;
+    }
+    
+    .applications-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .applications-table th,
+    .applications-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .applications-table th {
+        background: #f5f5f5;
+        font-weight: bold;
+    }
+    
+    .applications-table tr:hover {
+        background: #f9f9f9;
+    }
+    
+    .applications-table tr.selected {
+        background: #e3f2fd;
+    }
+    
+    .checkbox-col {
+        width: 30px;
+        text-align: center;
+    }
+    
+    .view-link {
+        color: #4a90e2;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .view-link:hover {
+        text-decoration: underline;
+    }
+    
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+        background: white;
+        margin: 10% auto;
+        padding: 20px;
+        width: 500px;
+        max-width: 90%;
+        border-radius: 5px;
+        position: relative;
+    }
+    
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .close {
+        font-size: 24px;
+        cursor: pointer;
+        color: #999;
+    }
+    
+    .close:hover {
+        color: #333;
+    }
+    
+    .app-detail {
+        margin-bottom: 10px;
+        padding: 8px;
+        background: #f9f9f9;
+        border-radius: 3px;
+    }
+    
+    .app-detail strong {
+        display: inline-block;
+        width: 130px;
+    }
+    
+    .no-applications {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+    }
+    
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #4a90e2;
+        text-decoration: none;
+    }
+    
+    .back-link:hover {
+        text-decoration: underline;
+    }
+    
+    .footer-note {
+        margin-top: 20px;
+        padding: 10px;
+        background: #f5f5f5;
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+    }
+    
+    @media (max-width: 768px) {
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .header h1 {
-            margin-bottom: 5px;
-        }
-        
-        .header p {
-            opacity: 0.9;
-        }
-        
-        .stats {
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 10px;
+            flex-direction: column;
             text-align: center;
-        }
-        
-        .stats .number {
-            font-size: 28px;
-            font-weight: bold;
-        }
-        
-        .content {
-            padding: 30px;
         }
         
         .toolbar {
-            margin-bottom: 20px;
-            display: flex;
+            flex-direction: column;
             gap: 10px;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .select-all {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .select-all input {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        
-        .delete-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        
-        .delete-btn:hover {
-            background: #c82333;
-            transform: translateY(-2px);
-        }
-        
-        .message {
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        
-        .success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .applications-table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow-x: auto;
-            display: block;
-        }
-        
-        .applications-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .applications-table th,
-        .applications-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .applications-table th {
-            background: #f8f9fa;
-            font-weight: bold;
-            color: #333;
-            position: sticky;
-            top: 0;
-        }
-        
-        .applications-table tr:hover {
-            background: #f8f9fa;
-        }
-        
-        .applications-table tr.selected {
-            background: #e3f2fd;
-        }
-        
-        .checkbox-col {
-            width: 40px;
-            text-align: center;
-        }
-        
-        .checkbox-col input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        
-        .application-detail {
-            max-width: 300px;
-        }
-        
-        .view-link {
-            color: #667eea;
-            text-decoration: none;
-            cursor: pointer;
-            border-bottom: 1px dashed #667eea;
-        }
-        
-        .view-link:hover {
-            color: #764ba2;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
         }
         
         .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
+            width: 95%;
+            margin: 20% auto;
         }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-        
-        .modal-header h3 {
-            color: #333;
-        }
-        
-        .close {
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #999;
-        }
-        
-        .close:hover {
-            color: #333;
-        }
-        
-        .app-detail {
-            margin-bottom: 10px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 5px;
-        }
-        
-        .app-detail strong {
-            display: inline-block;
-            width: 150px;
-            color: #667eea;
-        }
-        
-        .no-applications {
-            text-align: center;
-            padding: 60px;
-            color: #999;
-        }
-        
-        .no-applications p {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #667eea;
-            text-decoration: none;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 768px) {
-            .applications-table {
-                overflow-x: scroll;
-            }
-            
-            .applications-table table {
-                min-width: 800px;
-            }
-            
-            .header {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="container">
@@ -448,12 +420,12 @@ $totalApplications = count($applications);
                 </form>
             <?php else: ?>
                 <div class="no-applications">
-                    <p>📭 Пока нет ни одной заявки</p>
+                    <p> Пока нет ни одной заявки</p>
                     <p>Заявки появятся здесь после того, как пользователи заполнят форму регистрации</p>
                 </div>
             <?php endif; ?>
             
-            <a href="index.php" class="back-link">← Вернуться на главную страницу</a>
+            <a href="application.php" class="back-link">← Вернуться на главную страницу</a>
         </div>
     </div>
     
@@ -465,7 +437,7 @@ $totalApplications = count($applications);
                 <span class="close" onclick="closeModal()">&times;</span>
             </div>
             <div id="modalContent">
-                <!-- Сюда будет загружено содержимое заявки -->
+              
             </div>
         </div>
     </div>

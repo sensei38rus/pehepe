@@ -98,146 +98,153 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация на конференцию</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            margin-bottom: 10px;
-        }
-        
-        .content {
-            padding: 30px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .required::after {
-            content: " *";
-            color: red;
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        
-        .error {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-        
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            margin-top: 5px;
-        }
-        
-        .radio-group label {
-            font-weight: normal;
-            display: inline;
-            margin-left: 5px;
-        }
-        
-        .checkbox-group {
-            margin-top: 10px;
-        }
-        
-        .checkbox-group label {
-            font-weight: normal;
-            display: inline;
-            margin-left: 5px;
-        }
-        
-        button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s;
-        }
-        
-        button:hover {
-            transform: translateY(-2px);
-        }
-        
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        
-        hr {
-            margin: 20px 0;
-            border: none;
-            border-top: 1px solid #e0e0e0;
-        }
-    </style>
+   <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        background: #f0f0f0;
+        padding: 20px;
+    }
+    
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    
+    .header {
+        background: #4a90e2;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .header h1 {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    
+    .content {
+        padding: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .required::after {
+        content: " *";
+        color: red;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        font-size: 14px;
+    }
+    
+    input:focus,
+    select:focus {
+        outline: none;
+        border-color: #4a90e2;
+    }
+    
+    .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 3px;
+    }
+    
+    .radio-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 5px;
+        flex-wrap: wrap;
+    }
+    
+    .radio-group label {
+        font-weight: normal;
+        display: inline;
+        margin-left: 5px;
+    }
+    
+    .checkbox-group {
+        margin-top: 10px;
+    }
+    
+    .checkbox-group label {
+        font-weight: normal;
+        display: inline;
+        margin-left: 5px;
+    }
+    
+    button {
+        background: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 3px;
+        cursor: pointer;
+        width: 100%;
+    }
+    
+    button:hover {
+        background: #357abd;
+    }
+    
+    .success-message {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .error-message {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    
+    hr {
+        margin: 20px 0;
+        border: none;
+        border-top: 1px solid #ddd;
+    }
+    
+    .info-note {
+        background: #e7f3ff;
+        border-left: 3px solid #4a90e2;
+        padding: 8px;
+        margin-bottom: 20px;
+        font-size: 12px;
+        color: #666;
+    }
+</style>
 </head>
 <body>
     <div class="container">
@@ -357,7 +364,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Добавьте в конец формы, после кнопки submit -->
                 <div style="margin-top: 20px; text-align: center;">
                     <hr>
-                    <a href="task2.php" style="color: #667eea; text-decoration: none;">🔐 Админ-панель</a>
+                    <a href="admin.php" style="color: #667eea; text-decoration: none;">🔐 Админ-панель</a>
                 </div>
             </form>
         </div>
